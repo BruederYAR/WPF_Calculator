@@ -38,6 +38,10 @@
             <Setter Property="Command" Value="{Binding OperatorButtonCommand}"/>
         </Style>
 
+        <Style x:Key="HardOperatorButtonStyle" BasedOn="{StaticResource StandtartButtonStyle}" TargetType="{x:Type Button}" >
+            <Setter Property="Command" Value="{Binding HardOperatorButtonCommand}"/>
+        </Style>
+
         <Style x:Key="NumberButtonStyle" BasedOn="{StaticResource StandtartButtonStyle}" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Black"/>
             <Setter Property="Command" Value="{Binding NumberButtonCommand}"/>
@@ -88,9 +92,9 @@
             <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="C" CommandParameter="C"/>
             <Button Grid.Column="3" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="Er" CommandParameter="Er"/>
 
-            <Button Grid.Column="0" Grid.Row="1" Style="{StaticResource OperatorButtonStyle}" Content="1/X" CommandParameter="1/x"/>
-            <Button Grid.Column="1" Grid.Row="1" Style="{StaticResource OperatorButtonStyle}" Content="x^2" CommandParameter="x^2"/>
-            <Button Grid.Column="2" Grid.Row="1" Style="{StaticResource OperatorButtonStyle}" Content="sqrt(x)" CommandParameter="sqrt(x)"/>
+            <Button Grid.Column="0" Grid.Row="1" Style="{StaticResource HardOperatorButtonStyle}" Content="1/X" CommandParameter="1/x"/>
+            <Button Grid.Column="1" Grid.Row="1" Style="{StaticResource HardOperatorButtonStyle}" Content="x^2" CommandParameter="x^2"/>
+            <Button Grid.Column="2" Grid.Row="1" Style="{StaticResource HardOperatorButtonStyle}" Content="sqrt(x)" CommandParameter="sqrt(x)"/>
             <Button Grid.Column="3" Grid.Row="1" Style="{StaticResource OperatorButtonStyle}" Content="/" CommandParameter="/"/>
 
             <Button Grid.Column="0" Grid.Row="2" Style="{StaticResource NumberButtonStyle}" Content="7" CommandParameter="7"/>
@@ -108,9 +112,9 @@
             <Button Grid.Column="2" Grid.Row="4" Style="{StaticResource NumberButtonStyle}" Content="3" CommandParameter="3"/>
             <Button Grid.Column="3" Grid.Row="4" Style="{StaticResource OperatorButtonStyle}" Content="+" CommandParameter="+"/>
 
-            <Button Grid.Column="0" Grid.Row="5" Style="{StaticResource NumberButtonStyle}" Content="+-"/>
+            <Button Grid.Column="0" Grid.Row="5" Style="{StaticResource NumberButtonStyle}" Content="+-" CommandParameter="=-"/>
             <Button Grid.Column="1" Grid.Row="5" Style="{StaticResource NumberButtonStyle}" Content="0" CommandParameter="0"/>
-            <Button Grid.Column="2" Grid.Row="5" Style="{StaticResource NumberButtonStyle}" Content=","/>
+            <Button Grid.Column="2" Grid.Row="5" Style="{StaticResource NumberButtonStyle}" Content="," CommandParameter=","/>
             <Button Grid.Column="3" Grid.Row="5" Style="{StaticResource ManagementButtonStyle}" Content="=" CommandParameter="="/>
 
         </Grid> <!--Кнопки-->

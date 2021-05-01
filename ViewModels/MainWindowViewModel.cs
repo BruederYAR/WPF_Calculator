@@ -55,6 +55,7 @@ namespace calculator.ViewModels
 
             NumberButtonCommand = new LambdaCommand(OnNumberButtonCommandExecuted, CanStandartCommandExecute);
             OperatorButtonCommand = new LambdaCommand(OnOperatorButtonCommandExecuted, CanStandartCommandExecute);
+            HardOperatorButtonCommand = new LambdaCommand(OnHardOperatorButtonCommandExecuted, CanStandartCommandExecute);
             ManagementButtonCommand = new LambdaCommand(OnManagementButtonCommandExecuted, CanStandartCommandExecute);
             NotifyPropertyChanged();
         }
@@ -93,13 +94,34 @@ namespace calculator.ViewModels
 
                 Number += p.ToString();
 
-                if (Number[0] == '0')
+                if (Number[0] == ',')
                     Number = Number.Substring(1);
+                if (Number[0] == '0' && Number.Length == 1)
+                    Number += ',';  
             }
         }
         #endregion
 
         #region Выражение
+        public ICommand HardOperatorButtonCommand { get; }
+        private void OnHardOperatorButtonCommandExecuted(object p)
+        {
+            if(ExpressionFlag && !NumberFlag)
+            {
+                SympleExpressionExecution(Symbol);
+                HardExpressionExecution(p.ToString());
+            }
+            else
+            {
+                numberModel1.Number = Convert.ToDouble(Number);
+                HardExpressionExecution(p.ToString());
+            }
+
+            
+
+            NumberFlag = true; //Нужно, чтобы заменять ответ на 2 число
+        }
+
         private bool ExpressionFlag = false;
         private string Symbol;
         public ICommand OperatorButtonCommand { get; }
@@ -107,7 +129,7 @@ namespace calculator.ViewModels
         {
             if (p != null)
             {
-                if (Symbol != p.ToString() & !NumberFlag & ExpressionFlag & !HardExpressionExecution(Symbol)) //Нужно, чтобы при смене символа прорешалась прошлая задача
+                if (Symbol != p.ToString() & !NumberFlag & ExpressionFlag) //Нужно, чтобы при смене символа прорешалась прошлая задача
                 {
                     SympleExpressionExecution(Symbol);
                     ExpressionFlag = false;
@@ -123,18 +145,14 @@ namespace calculator.ViewModels
                     }
                 }
 
-
                 if (!ExpressionFlag) //Если задача не началась
                 {
                     ExpressionNumber = null; //ОБнуляем прошлые задачи, чтобы не было нагромождения
                     ExpressionNumber += Number;
                     numberModel1.Number = Convert.ToDouble(Number);
 
-                    if(!HardExpressionExecution(Symbol)) //Проверка на сложные выражения, если есть - выполняем
-                    {
-                        ExpressionNumber += p.ToString();
-                        ExpressionFlag = true;
-                    }
+                    ExpressionNumber += p.ToString();
+                    ExpressionFlag = true;
                 }
                 else if(ExpressionFlag && !NumberFlag) //Если задача началась, и есть 2 число, выполняем задачу 2 значениями
                 {
