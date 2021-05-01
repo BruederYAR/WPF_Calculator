@@ -50,6 +50,7 @@ namespace calculator.ViewModels
 
             Title = "Калькулятор";
 
+            //Создание всех команд
             OpenJournalPageCommand = new LambdaCommand(OnOpenJournalPageCommandExecuted, CanStandartCommandExecute); 
             OpenMemoryPageCommand = new LambdaCommand(OnOpenMemoryPageCommandExecuted, CanStandartCommandExecute);
 
@@ -57,6 +58,8 @@ namespace calculator.ViewModels
             OperatorButtonCommand = new LambdaCommand(OnOperatorButtonCommandExecuted, CanStandartCommandExecute);
             HardOperatorButtonCommand = new LambdaCommand(OnHardOperatorButtonCommandExecuted, CanStandartCommandExecute);
             ManagementButtonCommand = new LambdaCommand(OnManagementButtonCommandExecuted, CanStandartCommandExecute);
+
+            //Обновление всей формы
             NotifyPropertyChanged();
         }
 
@@ -93,11 +96,13 @@ namespace calculator.ViewModels
                 }
 
                 Number += p.ToString();
-
-                if (Number[0] == ',')
+                
+                if(Number[0] == ',') //Если запятая в начале, то удаляем
                     Number = Number.Substring(1);
-                if (Number[0] == '0' && Number.Length == 1)
-                    Number += ',';  
+                else if (Number[0] == '0' && Number.Length == 1) //Если 0, то ставим после него ","
+                    Number += ',';
+
+               
             }
         }
         #endregion
@@ -279,6 +284,13 @@ namespace calculator.ViewModels
                             ExpressionFlag = false;
                             NumberFlag = false;
                         }
+                        break;
+                    case "+-":
+                        if (Number != null && Number != "" && !NumberFlag)
+                            if (Number[0] == '-')
+                                Number = Number.Substring(1);
+                            else
+                                Number = '-' + Number;
                         break;
                 }
             }
