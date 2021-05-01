@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using calculator.ViewModels;
+
 namespace calculator.Views
 {
     /// <summary>
@@ -20,9 +22,12 @@ namespace calculator.Views
     /// </summary>
     public partial class MemoryPage : Page
     {
-        public MemoryPage()
+        public MemoryPageViewModel ViewModel;
+        public MemoryPage(MainWindowViewModel sender)
         {
+            ViewModel = new MemoryPageViewModel(sender);
             InitializeComponent();
+            DataContext = ViewModel;
         }
     }
 }

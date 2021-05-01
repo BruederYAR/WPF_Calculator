@@ -4,11 +4,47 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:calculator.Views"
+      xmlns:vm="clr-namespace:calculator.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="300"
       Title="MemoryPage">
 
+    <Page.Resources>
+        <SolidColorBrush x:Key="StandartBackgroundColor" Color="#474747"/>
+
+        <Style TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="{StaticResource StandartBackgroundColor}"/>
+        </Style>
+        <Style TargetType="{x:Type ListView}">
+            <Setter Property="Background" Value="{StaticResource StandartBackgroundColor}"/>
+        </Style>
+        <Style TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Background" Value="{StaticResource StandartBackgroundColor}"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        </Style>
+
+        <Style x:Key="StandtartButtonStyle" TargetType="{x:Type Button}" >
+            <Setter Property="Background"  Value="{StaticResource StandartBackgroundColor}"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="TextBlock.FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    </Page.Resources>
+
+    <Page.DataContext>
+        <vm:MemoryPageViewModel/>
+    </Page.DataContext>
+
     <Grid>
-        <TextBlock Text="Тут то-же"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0">
+            <ListView  ItemsSource="{Binding Numbers}" SelectedValue="{Binding SelectedNumber}"/>
+        </ScrollViewer>
+        <Button Grid.Row="1" Content="DEL" Style="{StaticResource StandtartButtonStyle}" HorizontalAlignment="Right" Command="{Binding DeleteCommand}"/>
+
     </Grid>
 </Page>

@@ -15,7 +15,7 @@ namespace calculator.ViewModels
     public class MainWindowViewModel : BaseViewModel
     {
         private JournalPage journalPage = new JournalPage();
-        private Page memoryPage = new MemoryPage();
+        private MemoryPage memoryPage;
 
         private ExpressionModel numberModel1 = new ExpressionModel();
         private ExpressionModel numberModel2 = new ExpressionModel();
@@ -26,7 +26,7 @@ namespace calculator.ViewModels
         private string number;
         public string Number {
             get => number;
-            private set
+            set
             {
                 number = value;
                 NotifyPropertyChanged(nameof(Number));
@@ -46,6 +46,8 @@ namespace calculator.ViewModels
 
         public MainWindowViewModel()
         {
+           memoryPage = new MemoryPage(this);
+
             CurrentPage = memoryPage; //Текущая страница
 
             Title = "Калькулятор";
@@ -57,8 +59,10 @@ namespace calculator.ViewModels
             NumberButtonCommand = new LambdaCommand(OnNumberButtonCommandExecuted, CanStandartCommandExecute);
             OperatorButtonCommand = new LambdaCommand(OnOperatorButtonCommandExecuted, CanStandartCommandExecute);
             HardOperatorButtonCommand = new LambdaCommand(OnHardOperatorButtonCommandExecuted, CanStandartCommandExecute);
+
             ManagementButtonCommand = new LambdaCommand(OnManagementButtonCommandExecuted, CanStandartCommandExecute);
 
+            SaveMemoryCommand = new LambdaCommand(OnSaveMemoryCommandExecuted, CanStandartCommandExecute);
             //Обновление всей формы
             NotifyPropertyChanged();
         }
@@ -260,7 +264,7 @@ namespace calculator.ViewModels
         {
             if (p != null)
             {
-                switch (p.ToString())
+                switch (p.ToString()) //Работа команд менеджмента 
                 {
                     case "C":
                         Number = null;
@@ -297,6 +301,17 @@ namespace calculator.ViewModels
         }
         #endregion
 
+        #region Память
+        public ICommand SaveMemoryCommand { get; } 
+        private void OnSaveMemoryCommandExecuted(object p)
+        {
+            if(Number != null && Number != "")
+            {
+                memoryPage.ViewModel.Numbers.Add(number);
+                NotifyPropertyChanged(nameof(CurrentPage));
+            }
+        }
+        #endregion
         #endregion
 
     }

@@ -88,9 +88,12 @@
             </Grid.RowDefinitions>
 
 
-            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="CE" CommandParameter="CE"/>
-            <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="C" CommandParameter="C"/>
-            <Button Grid.Column="3" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="Er" CommandParameter="Er"/>
+            <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="CE" CommandParameter="CE"/>
+            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="C" CommandParameter="C"/>
+            <Button Grid.Column="2"  Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="Er" CommandParameter="Er"/>
+
+            <Button Grid.Column="3" Grid.Row="0" Content="M+" Style="{StaticResource StandtartButtonStyle}" Command="{Binding SaveMemoryCommand}"/>
+
 
             <Button Grid.Column="0" Grid.Row="1" Style="{StaticResource HardOperatorButtonStyle}" Content="1/X" CommandParameter="1/x"/>
             <Button Grid.Column="1" Grid.Row="1" Style="{StaticResource HardOperatorButtonStyle}" Content="x^2" CommandParameter="x^2"/>
