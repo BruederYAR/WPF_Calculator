@@ -1,0 +1,142 @@
+﻿<Window x:Class="calculator.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:calculator.ViewModels"
+        xmlns:local="clr-namespace:calculator"
+        mc:Ignorable="d"
+        Title="{Binding Title, UpdateSourceTrigger=PropertyChanged}" 
+        Height="450" Width="800" MinHeight="350" MinWidth="700" Background="#FF474747" Foreground="White">
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <SolidColorBrush x:Key="StandartButtonColor" Color="#252525"/>
+        <SolidColorBrush x:Key="StandartBackgroundColor" Color="#474747"/>
+
+        <Style TargetType="{x:Type Grid}">
+            <Setter Property="Background" Value="{StaticResource StandartBackgroundColor}"/>
+        </Style>
+
+        <Style x:Key="StandtartButtonStyle" TargetType="{x:Type Button}" >
+            <Setter Property="Background"  Value="{StaticResource StandartButtonColor}"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="TextBlock.FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style BasedOn="{StaticResource StandtartButtonStyle}" TargetType="{x:Type Button}"/>
+
+        <Style x:Key="ManagementButtonStyle" BasedOn="{StaticResource StandtartButtonStyle}" TargetType="{x:Type Button}" >
+            <Setter Property="Command" Value="{Binding ManagementButtonCommand}"/>
+        </Style>
+
+        <Style x:Key="OperatorButtonStyle" BasedOn="{StaticResource StandtartButtonStyle}" TargetType="{x:Type Button}" >
+            <Setter Property="Command" Value="{Binding OperatorButtonCommand}"/>
+        </Style>
+
+        <Style x:Key="NumberButtonStyle" BasedOn="{StaticResource StandtartButtonStyle}" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Command" Value="{Binding NumberButtonCommand}"/>
+        </Style>
+
+        <Style x:Key="PagesButtonStyle" BasedOn="{StaticResource StandtartButtonStyle}" TargetType="{x:Type Button}">
+            <Setter Property="TextBlock.FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="{StaticResource StandartBackgroundColor}"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+    </Window.Resources>
+    
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.6*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2.2*"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <Button Grid.Column="1" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="CE" CommandParameter="CE"/>
+            <Button Grid.Column="2" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="C" CommandParameter="C"/>
+            <Button Grid.Column="3" Grid.Row="0" Style="{StaticResource ManagementButtonStyle}" Content="Er" CommandParameter="Er"/>
+
+            <Button Grid.Column="0" Grid.Row="1" Style="{StaticResource OperatorButtonStyle}" Content="1/X" CommandParameter="1/x"/>
+            <Button Grid.Column="1" Grid.Row="1" Style="{StaticResource OperatorButtonStyle}" Content="x^2" CommandParameter="x^2"/>
+            <Button Grid.Column="2" Grid.Row="1" Style="{StaticResource OperatorButtonStyle}" Content="sqrt(x)" CommandParameter="sqrt(x)"/>
+            <Button Grid.Column="3" Grid.Row="1" Style="{StaticResource OperatorButtonStyle}" Content="/" CommandParameter="/"/>
+
+            <Button Grid.Column="0" Grid.Row="2" Style="{StaticResource NumberButtonStyle}" Content="7" CommandParameter="7"/>
+            <Button Grid.Column="1" Grid.Row="2" Style="{StaticResource NumberButtonStyle}" Content="8" CommandParameter="8"/>
+            <Button Grid.Column="2" Grid.Row="2" Style="{StaticResource NumberButtonStyle}" Content="9" CommandParameter="9"/>
+            <Button Grid.Column="3" Grid.Row="2" Style="{StaticResource OperatorButtonStyle}" Content="x" CommandParameter="*"/>
+
+            <Button Grid.Column="0" Grid.Row="3" Style="{StaticResource NumberButtonStyle}" Content="4" CommandParameter="4"/>
+            <Button Grid.Column="1" Grid.Row="3" Style="{StaticResource NumberButtonStyle}" Content="5" CommandParameter="5"/>
+            <Button Grid.Column="2" Grid.Row="3" Style="{StaticResource NumberButtonStyle}" Content="6" CommandParameter="6"/>
+            <Button Grid.Column="3" Grid.Row="3" Style="{StaticResource OperatorButtonStyle}" Content="-" CommandParameter="-"/>
+
+            <Button Grid.Column="0" Grid.Row="4" Style="{StaticResource NumberButtonStyle}" Content="1" CommandParameter="1"/>
+            <Button Grid.Column="1" Grid.Row="4" Style="{StaticResource NumberButtonStyle}" Content="2" CommandParameter="2"/>
+            <Button Grid.Column="2" Grid.Row="4" Style="{StaticResource NumberButtonStyle}" Content="3" CommandParameter="3"/>
+            <Button Grid.Column="3" Grid.Row="4" Style="{StaticResource OperatorButtonStyle}" Content="+" CommandParameter="+"/>
+
+            <Button Grid.Column="0" Grid.Row="5" Style="{StaticResource NumberButtonStyle}" Content="+-"/>
+            <Button Grid.Column="1" Grid.Row="5" Style="{StaticResource NumberButtonStyle}" Content="0" CommandParameter="0"/>
+            <Button Grid.Column="2" Grid.Row="5" Style="{StaticResource NumberButtonStyle}" Content=","/>
+            <Button Grid.Column="3" Grid.Row="5" Style="{StaticResource ManagementButtonStyle}" Content="=" CommandParameter="="/>
+
+        </Grid> <!--Кнопки-->
+
+        <Grid Grid.RowSpan="2" Grid.Column="1"> 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0" Content="Журнал" Style="{StaticResource PagesButtonStyle}" x:Name="journalButton" Command="{Binding OpenJournalPageCommand}"/>
+            <Button Grid.Column="1" Grid.Row="0" Content="Память" Style="{StaticResource PagesButtonStyle}" x:Name="memoryButton" Command="{Binding OpenMemoryPageCommand}"/>
+
+            <Frame 
+                Grid.ColumnSpan="2" Grid.Row="1" Margin="0,10,0,0" 
+                x:Name="frame" Content="{Binding CurrentPage}" NavigationUIVisibility="Hidden"/>
+        </Grid> <!--Журнал и память-->
+
+        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0">
+            <TextBlock Text="{Binding ExpressionNumber}" Margin="0,0,0,10" Foreground="#a5a5a5"/>
+            <TextBlock Text="{Binding Number}" FontSize="35"/>
+        </StackPanel> <!--Результат-->
+        
+    </Grid>
+</Window>
